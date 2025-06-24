@@ -17,17 +17,17 @@ class ChessBoard:
             ключ     - кортеж из 2х цифровых координат клетки
             значение - буквенно-цифровое обозначение клетки (a1, b5, f3 ...)
     """
+    def __init__(self):
+        self.shapes_location: dict[str, list[tuple[int, int] | None]] = {}
+        self.position_interpreter: dict[tuple[int, int], str] = {}
 
-    shapes_location: dict[str, list[tuple[int, int] | None]] = {}
-    position_interpreter: dict[tuple[int, int], str] = {}
+        for n, i in enumerate('abcdefgh'):
+            for j in range(1, 9):
+                self.shapes_location[f'{i}{j}'] = [None, (n + 1, j)]
 
-    for n, i in enumerate('abcdefgh'):
-        for j in range(1, 9):
-            shapes_location[f'{i}{j}'] = [None, (n + 1, j)]
-
-    for n, i in enumerate('abcdefgh'):
-        for j in range(1, 9):
-            position_interpreter[(n + 1, j)] = f'{i}{j}'
+        for n, i in enumerate('abcdefgh'):
+            for j in range(1, 9):
+                self.position_interpreter[(n + 1, j)] = f'{i}{j}'
 
     def move(self, location: str, new_location: str) -> None:
         """ Изменяет меcтоположение фигур, если это возможно.
