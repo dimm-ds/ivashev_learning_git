@@ -1,0 +1,128 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Основная сетка сайта */
+main {
+    display: grid;
+    gap: 2rem;
+}
+
+/* Блок About Me */
+.about_me {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    align-items: center;
+    gap: 2rem;
+}
+
+.photo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.short_description h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.socials .social_links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.social_link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.social_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.bio p {
+    margin-bottom: 1em;
+}
+
+.work_experiens .job_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.job {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.company {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name_company {
+    font-weight: bold;
+}
+
+.period {
+    opacity: 0.7;
+}
+
+.portfolio .items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.project_photo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.show_project a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.show_project a:hover {
+    background-color: #0056b3;
+}

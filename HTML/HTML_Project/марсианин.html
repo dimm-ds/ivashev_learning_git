@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма полета на Марс</title>
+</head>
+<body>
+    <h1>Анкта путешественника на Марс</h1>
+    <form action="submit" method="get">
+        <div>
+            <p>
+                <label for="firstname">Имя:</label>
+                <input type="text" name="name" id="firstname">
+
+                <label for="lastname">Фамилия:</label>
+                <input type="text" name="lastname" id="lastname">
+            </p>
+            <p>
+                <label for="age">Возраст:</label>
+                <input type="number" name="age" id="age">
+
+                <label for="email">Почта:</label>
+                <input type="email" name="email" id="email">
+            </p>
+        </div>
+        <div>
+            <p>
+                <label for="tm_researcher">Исследователь:</label>
+                <input type="radio" name="type_mission" id="tm_researcher" value="researcher" required>
+
+                <label for="tm_engineer">Инженер:</label>
+                <input type="radio" name="type_mission" id="tm_engineer" value="engineer">
+
+                <label for="tm_doctor">Доктор:</label>
+                <input type="radio" name="type_mission" id="tm_doctor" value="doctor">
+            </p>
+            <p>
+                <label for="skills_1">Программирование:</label>
+                <input type="checkbox" name="skills[]" id="skills_1" value="researcher" required>
+
+                <label for="skills_2">Медицина:</label>
+                <input type="checkbox" name="skills[]" id="skills_2" value="engineer">
+
+                <label for="skills_3">Строительство:</label>
+                <input type="checkbox" name="skills[]" id="skills_3" value="doctor">
+            </p>
+            <p>
+                <label for="description">Почему ты хочешь полететь на Марс?</label>
+            </p>
+            <p>
+                <textarea id="description" name="description" rows="4" cols="50"></textarea>
+            </p>
+        </div>
+        <div>
+            <label for="file">Выберите файл:</label>
+            <input type="file" id="file" name="file">
+        </div>
+        <label for="approval">Я согласен с условиями.</label>
+        <input type="checkbox" name="approval" id="approval"value="yes" required>
+
+        <button type="submit">Отправить.</button>
+
+
+    </form>
+</body>
+</html>
