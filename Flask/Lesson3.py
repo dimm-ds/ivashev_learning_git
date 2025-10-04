@@ -6,11 +6,10 @@ errors_dict = {403: 'Превышение лимита запросов.',
                500: 'Ошибка сервера.'}
 
 
-def get_repos(rep):
-    rep_list = []
-    for i in rep:
-        rep_list.append(i['name'])
-    return rep_list
+def get_repos(us_name):
+    url = f"https://api.github.com/users/{us_name}/repos"
+    return requests.get(url)
+
 
 
 def analyze_repos(rep):
@@ -29,19 +28,20 @@ def analyze_repos(rep):
 def main():
     while True:
         username = input('Введите пользователя репозитория для получения информации.')
-        url = f"https://api.github.com/users/{username}/repos"
-        response = requests.get(url)
-        if response.status_code != 200:
-            print(f'Запрос завершен с ошибкой {response.status_code} - {errors_dict[response.status_code]}.')
-        else:
-            repo = response.json()
-            print(f'Список доступных репозиториев пользователя {username}: {get_repos(repo)}')
-            stat = analyze_repos(repo)
-            print(f'- Количество публичных репозиториев: {stat["count"]}\n'
-                  f'- Общее количество звёзд: {stat["stars"]}\n'
-                  f'- Топ языков программирования:')
-            [print(f'{i[0]}: {i[1]} репозитори{["й", "я", "ев"][(i[1] > 1) + (i[1] > 4)]}') for i in
-             stat['list_language'].items()]
+        repo = get_repos(username)
+        if repo.status_code != 200:
+            print(f'Запрос завершен с ошибкой {repo.status_code} - {errors_dict[repo.status_code]}.')
+            continue
+        repos = repo.json()
+        if not repos:
+            print('У этого пользователю не найдено ни одного доступного репозитория')
+            continue
+        stat = analyze_repos(repos)
+        print(f'- Количество публичных репозиториев: {stat["count"]}\n'
+              f'- Общее количество звёзд: {stat["stars"]}\n'
+              f'- Топ языков программирования:')
+        [print(f'{i[0]}: {i[1]} репозитори{["й", "я", "ев"][(i[1] > 1) + (i[1] > 4)]}') for i in
+         stat['list_language'].items()]
         if input('Хотите продолжить? Все кроме "да" прервет сессию.').lower() != 'да':
             break
 
