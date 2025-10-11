@@ -12,17 +12,19 @@ def get_repos(us_name):
 
 
 
-def analyze_repos(rep):
-    dct = {}
-    lst = []
-    for i in rep:
-        dct['count'] = dct.get('count', 0) + 1
-        dct['stars'] = dct.get('stars', 0) + i['stargazers_count']
-        if dct.get('best_rep', ['', 0])[1] < i['stargazers_count']:
-            dct['best_rep'] = [i['name'], i['stargazers_count']]
-        lst.append(i['language'])
-    dct['list_language'] = Counter(lst)
-    return dct
+def analyze_repos(repositories):
+    stats = {
+        'count': len(repositories),
+        'stars': 0,
+        'best_repo': ('', 0),
+        'languages': Counter()
+        }
+    for repo in repositories:
+        stats['stars'] += repo['stargazers_count']
+        if  repo['stargazers_count'] > stats['best_repo'][1]:
+            stats['best_repo'] = (repo['name'], repo['stargazers_count'])
+        stats['languages'][repo['language']] += 1
+    return stats
 
 
 def main():
@@ -30,7 +32,7 @@ def main():
         username = input('Введите пользователя репозитория для получения информации.')
         repo = get_repos(username)
         if repo.status_code != 200:
-            print(f'Запрос завершен с ошибкой {repo.status_code} - {errors_dict[repo.status_code]}.')
+            print(f'Запрос завершен с ошибкой {repo.status_code} - {errors_dict.get(repo.status_code, "Неизвестная ошибка")}.')
             continue
         repos = repo.json()
         if not repos:
@@ -40,8 +42,8 @@ def main():
         print(f'- Количество публичных репозиториев: {stat["count"]}\n'
               f'- Общее количество звёзд: {stat["stars"]}\n'
               f'- Топ языков программирования:')
-        [print(f'{i[0]}: {i[1]} репозитори{["й", "я", "ев"][(i[1] > 1) + (i[1] > 4)]}') for i in
-         stat['list_language'].items()]
+        [print(f'{item[0]}: {item[1]} репозитори{["й", "я", "ев"][(item[1] > 1) + (item[1] > 4)]}') for item in
+         stat['languages'].items()]
         if input('Хотите продолжить? Все кроме "да" прервет сессию.').lower() != 'да':
             break
 
